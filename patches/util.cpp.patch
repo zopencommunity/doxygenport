@@ -1,0 +1,18 @@
+diff --git a/src/util.cpp b/src/util.cpp
+index d288aa0fc..984247386 100644
+--- a/src/util.cpp
++++ b/src/util.cpp
+@@ -568,8 +568,13 @@ QCString removeRedundantWhiteSpace(const QCString &s)
+   // We use a static character array to
+   // improve the performance of this function
+   // and thread_local is needed to make it multi-thread safe
++#ifdef __MVS__
++  static char *growBuf = nullptr;
++  static size_t growBufLen = 0;
++#elif
+   static THREAD_LOCAL char *growBuf = nullptr;
+   static THREAD_LOCAL size_t growBufLen = 0;
++#endif
+   if (s.length()*3>growBufLen) // For input character we produce at most 3 output characters,
+   {
+     growBufLen = s.length()*3;

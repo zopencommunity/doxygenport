@@ -1,0 +1,18 @@
+diff --git a/src/latexgen.cpp b/src/latexgen.cpp
+index 7aeb3130b..d72aee726 100644
+--- a/src/latexgen.cpp
++++ b/src/latexgen.cpp
+@@ -82,8 +82,13 @@ void LatexCodeGenerator::codify(const QCString &str)
+     //char cs[5];
+     int spacesToNextTabStop;
+     int tabSize = Config_getInt(TAB_SIZE);
++#ifdef __MVS__
++    static char *result = NULL;
++    static int lresult = 0;
++#elif
+     static THREAD_LOCAL char *result = NULL;
+     static THREAD_LOCAL int lresult = 0;
++#endif
+     int i;
+     while ((c=*p))
+     {

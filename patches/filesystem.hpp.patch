@@ -1,0 +1,32 @@
+diff --git a/deps/filesystem/filesystem.hpp b/deps/filesystem/filesystem.hpp
+index 53f4ad4ef..48280ec6a 100644
+--- a/deps/filesystem/filesystem.hpp
++++ b/deps/filesystem/filesystem.hpp
+@@ -80,6 +80,8 @@
+ #define GHC_OS_QNX
+ #elif defined(__HAIKU__)
+ #define GHC_OS_HAIKU
++#elif defined(__MVS__)
++#define GHC_OS_ZOS
+ #else
+ #error "Operating system currently not supported!"
+ #endif
+@@ -4650,14 +4652,14 @@ GHC_INLINE void last_write_time(const path& p, file_time_type new_time, std::err
+     if (!::SetFileTime(file.get(), 0, 0, &ft)) {
+         ec = detail::make_system_error();
+     }
+-#elif defined(GHC_OS_MACOS) && \
++#elif (defined(GHC_OS_MACOS) && \
+     (__MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_10_13) || (__IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_11_0) || \
+-    (__TV_OS_VERSION_MIN_REQUIRED < __TVOS_11_0) || (__WATCH_OS_VERSION_MIN_REQUIRED < __WATCHOS_4_0)
++    (__TV_OS_VERSION_MIN_REQUIRED < __TVOS_11_0) || (__WATCH_OS_VERSION_MIN_REQUIRED < __WATCHOS_4_0)) || (defined(__MVS__)) 
+     struct ::stat fs;
+     if (::stat(p.c_str(), &fs) == 0) {
+         struct ::timeval tv[2];
+-        tv[0].tv_sec = fs.st_atimespec.tv_sec;
+-        tv[0].tv_usec = static_cast<int>(fs.st_atimespec.tv_nsec / 1000);
++	tv[0].tv_sec = fs.st_atime;
++	tv[0].tv_usec=0;
+         tv[1].tv_sec = std::chrono::duration_cast<std::chrono::seconds>(d).count();
+         tv[1].tv_usec = static_cast<int>(std::chrono::duration_cast<std::chrono::microseconds>(d).count() % 1000000);
+         if (::utimes(p.c_str(), tv) == 0) {

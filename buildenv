@@ -1,0 +1,52 @@
+export ZOPEN_GIT_URL="https://github.com/doxygen/doxygen.git"
+export ZOPEN_GIT_DEPS="curl make cmake git grep sed zoslib automake autoconf python bison flex m4 gnulib coreutils perl python libxml2"
+export ZOPEN_TYPE="GIT"
+
+export ZOPEN_COMP="clang"
+export ZOPEN_CONFIGURE="cmake"
+export ZOPEN_CONFIGURE_OPTS="--trace-expand -B ../build  --install-prefix \$ZOPEN_INSTALL_DIR/ -DBUILD_TESTING=ON -DENABLE_STATIC_INIT=ON -DZOSLIB_GENERIC=ON -DCMAKE_INSTALL_PREFIX=\$ZOPEN_INSTALL_DIR/ -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON ."
+
+export ZOPEN_MAKE="cmake"
+export ZOPEN_MAKE_OPTS=" --build ../build --target all"
+export ZOPEN_MAKE_MINIMAL="yes"
+export ZOPEN_CHECK="cmake"
+export ZOPEN_CHECK_OPTS=" --build ../build --target tests -- -i"
+
+
+export ZOPEN_INSTALL="cmake"
+export ZOPEN_INSTALL_OPTS="--install ../build"
+#export ZOPEN_EXTRA_LIBS='-l gnu' ==> used
+
+zopen_check_results()
+{
+  dir="$1"
+  pfx="$2"
+  chk="$1/$2_check.log"
+  failures=$(grep -i "^error:" $chk | wc -l) 
+  passed=$(grep "^ok " $chk | wc -l)
+  totalTests=$(($failures+$passed))
+
+  # Echo the following information to gauge build health
+cat <<ZZ
+actualFailures:${failures}
+totalTests:${totalTests}
+expectedFailures:${failures}
+ZZ
+}
+
+zopen_append_to_env()
+{
+  # echo envars outside of PATH, MANPATH, LIBPATH
+}
+
+zopen_append_to_setup()
+{
+  # echo commands that will run when installing via setup.sh
+}
+
+zopen_get_version()
+{
+  # Modify to echo the version of your tool/library
+  # Rather than hardcoding the version, obtain the version by running the tool/library
+  ../build/bin/doxygen --version | head -1 | awk -F" " '{print $1}'
+}
