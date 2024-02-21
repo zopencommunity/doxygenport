@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 9b3e6eb9f..e465b72a5 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -161,7 +161,7 @@ find_package(BISON REQUIRED)
+ if (BISON_VERSION VERSION_LESS 2.7)
+   message(SEND_ERROR "Doxygen requires at least bison version 2.7 (installed: ${BISON_VERSION})")
+ endif()
+-find_package(Threads)
++#find_package(Threads)
+ find_package(Sanitizers)
+ 
+ if ((CMAKE_BUILD_TYPE STREQUAL "Debug") OR enable_lex_debug)

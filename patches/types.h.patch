@@ -1,0 +1,13 @@
+diff --git a/src/types.h b/src/types.h
+index 5a7231a25..b44b18635 100644
+--- a/src/types.h
++++ b/src/types.h
+@@ -433,7 +433,7 @@ class TypeSpecifier
+ #undef TSPEC
+ 
+ };
+-
++#undef PACKAGE
+ enum class VhdlSpecifier
+ {
+   UNKNOWN=0,
