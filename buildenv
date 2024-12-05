@@ -1,5 +1,5 @@
 export ZOPEN_GIT_URL="https://github.com/doxygen/doxygen.git"
-export ZOPEN_GIT_DEPS="curl make cmake git grep sed zoslib automake autoconf python bison flex m4 gnulib coreutils perl python libxml2"
+export ZOPEN_GIT_DEPS="curl make cmake git grep sed zoslib automake autoconf check_python bison flex m4 gnulib coreutils perl check_python libxml2"
 export ZOPEN_TYPE="GIT"
 
 export ZOPEN_CATEGORIES="documentation"
