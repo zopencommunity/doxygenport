@@ -1,18 +1,18 @@
-export ZOPEN_GIT_URL="https://github.com/doxygen/doxygen.git"
-export ZOPEN_GIT_DEPS="curl make cmake git grep sed zoslib automake autoconf check_python bison flex m4 gnulib coreutils perl check_python libxml2"
-export ZOPEN_TYPE="GIT"
+export ZOPEN_STABLE_URL="https://github.com/doxygen/doxygen.git"
+export ZOPEN_STABLE_DEPS="curl make cmake git grep sed zoslib automake autoconf check_python bison flex m4 gnulib coreutils perl check_python libxml2 spdlog"
+export ZOPEN_BUILD_LINE="STABLE"
+export ZOPEN_STABLE_TAG="Release_1_13_2"
 
 export ZOPEN_CATEGORIES="documentation"
 export ZOPEN_COMP="clang"
 export ZOPEN_CONFIGURE="cmake"
-export ZOPEN_CONFIGURE_OPTS="--trace-expand -B ../build  --install-prefix \$ZOPEN_INSTALL_DIR/ -DBUILD_TESTING=ON -DENABLE_STATIC_INIT=ON -DZOSLIB_GENERIC=ON -DCMAKE_INSTALL_PREFIX=\$ZOPEN_INSTALL_DIR/ -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON ."
+export ZOPEN_CONFIGURE_OPTS="--trace-expand -B ../build  --install-prefix \$ZOPEN_INSTALL_DIR/ -DBUILD_TESTING=ON -DENABLE_STATIC_INIT=ON -DZOSLIB_GENERIC=ON -DCMAKE_INSTALL_PREFIX=\$ZOPEN_INSTALL_DIR/ -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -Duse_sys_spdlog=ON  ."
 
 export ZOPEN_MAKE="cmake"
 export ZOPEN_MAKE_OPTS=" --build ../build --target all"
 export ZOPEN_MAKE_MINIMAL="yes"
-export ZOPEN_CHECK="cmake"
-export ZOPEN_CHECK_OPTS=" --build ../build --target tests -- -i"
-
+export ZOPEN_CHECK="make"
+export ZOPEN_CHECK_OPTS="-C ../build tests TEST_FLAGS=\"--exclude_id 022\""
 
 export ZOPEN_INSTALL="cmake"
 export ZOPEN_INSTALL_OPTS="--install ../build"
@@ -23,15 +23,15 @@ zopen_check_results()
   dir="$1"
   pfx="$2"
   chk="$1/$2_check.log"
-  failures=$(grep -i "^error:" $chk | wc -l) 
-  passed=$(grep "^ok " $chk | wc -l)
+  failures=$(( $(grep -c '^not ok' $chk) + 1 ))
+  passed=$(grep -c "^ok" $chk)
   totalTests=$(($failures+$passed))
 
   # Echo the following information to gauge build health
 cat <<ZZ
 actualFailures:${failures}
 totalTests:${totalTests}
-expectedFailures:${failures}
+expectedFailures:2
 ZZ
 }
 

@@ -1,10 +1,10 @@
 diff --git a/src/latexgen.cpp b/src/latexgen.cpp
-index 256016b4e..fe99dbef2 100644
+index 739d29c7c..a2e7e5dc6 100644
 --- a/src/latexgen.cpp
 +++ b/src/latexgen.cpp
-@@ -82,8 +82,13 @@ void LatexCodeGenerator::codify(const QCString &str)
+@@ -81,8 +81,13 @@ void LatexCodeGenerator::codify(const QCString &str)
+     char c = 0;
      //char cs[5];
-     int spacesToNextTabStop;
      int tabSize = Config_getInt(TAB_SIZE);
 +#ifdef __MVS__
 +    static char *result = NULL;
@@ -13,6 +13,6 @@ index 256016b4e..fe99dbef2 100644
      static THREAD_LOCAL char *result = nullptr;
      static THREAD_LOCAL int lresult = 0;
 +#endif
-     int i;
-     while ((c=*p))
+     if (m_hide) // only update column count
      {
+       m_col = updateColumnCount(p,m_col);
