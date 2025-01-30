@@ -1,2 +1,35 @@
-# doxygenport
-Doxygen is the de facto standard tool for generating documentation from annotated C++ sources, but it also supports other popular programming languages such as C, Objective-C, C#, PHP, Java, Python, IDL (Corba, Microsoft, and UNO/OpenOffice flavors), Fortran, and to some extent D. 
+[![Automatic version updates](https://github.com/ZOSOpenTools/doxygenport/actions/workflows/bump.yml/badge.svg)](https://github.com/ZOSOpenTools/doxygenport/actions/workflows/bump.yml)
+
+# Doxygen
+
+A documentation generator
+
+# Installation and Usage
+
+Use the zopen package manager ([QuickStart Guide](https://zopen.community/#/Guides/QuickStart)) to install:
+```bash
+zopen install doxygen
+```
+
+# Building from Source
+
+1. Clone the repository:
+```bash
+git clone https://github.com/zopencommunity/doxygenport.git
+cd doxygenport
+```
+2. Build using zopen:
+```bash
+zopen build -vv
+```
+
+See the [zopen porting guide](https://zopen.community/#/Guides/Porting) for more details.
+
+# Documentation
+
+
+# Troubleshooting
+TBD
+
+# Contributing
+Contributions are welcome! Please follow the [zopen contribution guidelines](https://github.com/zopencommunity/meta/blob/main/CONTRIBUTING.md).
