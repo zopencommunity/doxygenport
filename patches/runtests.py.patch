@@ -1,5 +1,5 @@
 diff --git a/testing/runtests.py b/testing/runtests.py
-index 840f92e03..deeb79537 100755
+index b21762b91..167cfa456 100755
 --- a/testing/runtests.py
 +++ b/testing/runtests.py
 @@ -4,6 +4,11 @@ from __future__ import print_function
@@ -14,13 +14,3 @@ index 840f92e03..deeb79537 100755
  
  config_reg = re.compile(r'.*\/\/\s*(?P<name>\S+):\s*(?P<value>.*)$')
  bkmk_reg = re.compile(r'.*bkmkstart\s+([A-Z][A-Z][A-Z][A-Z][A-Z][A-Z][A-Z][A-Z][A-Z][A-Z]).*')
-@@ -71,7 +76,8 @@ class Tester:
-             self.test_out = self.args.inputdir+'/'+self.test_id
-         else:
-             self.test_out = self.args.outputdir+'/test_output_'+self.test_id
--        self.prepare_test()
-+        if self.test_id != "022":
-+            self.prepare_test()
- 
-     def compare_ok(self,got_file,expected_file,name):
-         if not os.path.isfile(got_file):
