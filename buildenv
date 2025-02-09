@@ -2,7 +2,8 @@
 export ZOPEN_STABLE_URL="https://github.com/doxygen/doxygen.git"
 export ZOPEN_STABLE_DEPS="curl make cmake git grep sed zoslib automake autoconf check_python bison flex m4 gnulib coreutils perl check_python libxml2 spdlog"
 export ZOPEN_BUILD_LINE="STABLE"
-export ZOPEN_STABLE_TAG="Release_1_13_2"
+DOXYGEN_VERSION="Release_1_13_2"
+export ZOPEN_STABLE_TAG=${DOXYGEN_VERSION}
 
 export ZOPEN_CATEGORIES="documentation"
 export ZOPEN_COMP="clang"
